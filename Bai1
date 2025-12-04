@@ -1,0 +1,59 @@
+/* HỌ TÊN: [Tên của bạn]
+   BÀI TẬP: Quản lý thông tin sinh viên
+*/
+
+-- =============================================
+-- PHẦN 1: KHỞI TẠO DỮ LIỆU
+-- =============================================
+
+-- 1. Tạo bảng students
+CREATE TABLE students (
+                          id SERIAL PRIMARY KEY,
+                          name VARCHAR(50),
+                          age INT,
+                          major VARCHAR(50),
+                          gpa DECIMAL(3,2)
+);
+
+-- 2. Chèn dữ liệu mẫu
+INSERT INTO students (name, age, major, gpa) VALUES
+                                                 ('An', 20, 'CNTT', 3.5),
+                                                 ('Bình', 21, 'Toán', 3.2),
+                                                 ('Cường', 22, 'CNTT', 3.8),
+                                                 ('Dương', 20, 'Vật lý', 3.0),
+                                                 ('Em', 21, 'CNTT', 2.9);
+
+-- =============================================
+-- PHẦN 2: GIẢI BÀI TẬP
+-- =============================================
+
+-- Câu 1: Thêm sinh viên mới
+INSERT INTO students (name, age, major, gpa)
+VALUES ('Hùng', 23, 'Hóa học', 3.4);
+
+-- Câu 2: Cập nhật GPA của Bình
+UPDATE students
+SET gpa = 3.6
+WHERE name = 'Bình';
+
+-- Câu 3: Xóa sinh viên có GPA thấp hơn 3.0
+DELETE FROM students
+WHERE gpa < 3.0;
+
+-- Câu 4: Liệt kê tên và chuyên ngành (GPA giảm dần)
+SELECT name, major FROM students ORDER BY gpa DESC;
+
+-- Câu 5: Liệt kê tên sinh viên duy nhất chuyên ngành CNTT
+SELECT DISTINCT name FROM students WHERE major = 'CNTT';
+
+-- Câu 6: Liệt kê sinh viên có GPA từ 3.0 đến 3.6
+SELECT * FROM students WHERE gpa BETWEEN 3.0 AND 3.6;
+
+-- Câu 7: Liệt kê sinh viên tên bắt đầu bằng 'C'
+SELECT * FROM students WHERE name LIKE 'C%';
+
+-- Câu 8: Hiển thị 3 sinh viên đầu tiên (tên tăng dần)
+SELECT * FROM students ORDER BY name ASC LIMIT 3;
+
+-- Câu 9: Lấy từ sinh viên thứ 2 đến thứ 4
+SELECT * FROM students ORDER BY name ASC LIMIT 3 OFFSET 1;
