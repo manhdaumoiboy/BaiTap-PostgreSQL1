@@ -1,0 +1,64 @@
+/* HỌ TÊN: [Tên của bạn]
+   BÀI TẬP: Quản lý sản phẩm (Products)
+*/
+
+-- =============================================
+-- PHẦN 1: KHỞI TẠO DỮ LIỆU (Theo ảnh đề bài)
+-- =============================================
+
+-- 1. Tạo bảng products
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    category VARCHAR(50),
+    price DECIMAL(10, 2),
+    stock INT
+);
+
+-- 2. Chèn dữ liệu mẫu (Chuẩn theo ảnh image_9f2d3d.png)
+INSERT INTO products (name, category, price, stock) VALUES
+('Laptop Dell', 'Electronics', 1500.00, 5),
+('Chuột Logitech', 'Electronics', 25.50, 50),
+('Bàn phím Razer', 'Electronics', 120.00, 20),
+('Tủ lạnh LG', 'Home Appliances', 800.00, 3),
+('Máy giặt Samsung', 'Home Appliances', 600.00, 2);
+
+-- =============================================
+-- PHẦN 2: GIẢI BÀI TẬP
+-- =============================================
+
+-- Câu 1: Thêm sản phẩm mới 'Điều hòa Panasonic'
+INSERT INTO products (name, category, price, stock)
+VALUES ('Điều hòa Panasonic', 'Home Appliances', 400.00, 10);
+
+-- Câu 2: Cập nhật stock của 'Laptop Dell' thành 7
+UPDATE products
+SET stock = 7
+WHERE name = 'Laptop Dell';
+
+-- Câu 3: Xóa các sản phẩm có stock bằng 0
+-- (Lưu ý: Dữ liệu mẫu hiện tại không có stock 0, nên lệnh này sẽ chạy nhưng không xóa dòng nào)
+DELETE FROM products
+WHERE stock = 0;
+
+-- Câu 4: Liệt kê tất cả sản phẩm theo giá tăng dần
+SELECT * FROM products ORDER BY price ASC;
+
+-- Câu 5: Liệt kê danh mục duy nhất (DISTINCT)
+SELECT DISTINCT category FROM products;
+
+-- Câu 6: Liệt kê sản phẩm có giá từ 100 đến 1000
+SELECT * FROM products WHERE price BETWEEN 100 AND 1000;
+
+-- Câu 7: Liệt kê sản phẩm có tên chứa 'LG' hoặc 'Samsung'
+-- Sử dụng ILIKE để tìm kiếm không phân biệt hoa thường cho chắc chắn
+SELECT * FROM products
+WHERE name ILIKE '%LG%' OR name ILIKE '%Samsung%';
+
+-- Câu 8: Hiển thị 2 sản phẩm đầu tiên theo giá giảm dần
+SELECT * FROM products
+ORDER BY price DESC
+LIMIT 2;
+
+-- (Hoặc: Lấy sản phẩm thứ 2 đến thứ 3 theo yêu cầu đề bài)
+-- SELECT * FROM products ORDER BY price DESC LIMIT 2 OFFSET 1;
