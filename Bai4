@@ -1,0 +1,70 @@
+/* HỌ TÊN: [Tên của bạn]
+   BÀI TẬP: Quản lý Bảng Sản Phẩm (Product Management)
+*/
+
+-- =============================================
+-- PHẦN 1: KHỞI TẠO DỮ LIỆU (Theo mô tả đề bài)
+-- =============================================
+
+-- 1. Tạo bảng products
+-- Lưu ý: price dùng NUMERIC để lưu số tiền lớn chính xác
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    category VARCHAR(50),
+    price NUMERIC(15, 0),
+    stock INT,
+    manufacturer VARCHAR(50)
+);
+
+-- 2. Chèn dữ liệu mẫu
+INSERT INTO products (name, category, price, stock, manufacturer) VALUES
+('Laptop Dell XPS 13', 'Laptop', 25000000, 12, 'Dell'),
+('Chuột Logitech M90', 'Phụ kiện', 150000, 50, 'Logitech'),
+('Bàn phím cơ Razer', 'Phụ kiện', 2200000, 0, 'Razer'),
+('Macbook Air M2', 'Laptop', 32000000, 7, 'Apple'),
+('iPhone 14 Pro Max', 'Điện thoại', 35000000, 15, 'Apple'),
+('Laptop Dell XPS 13', 'Laptop', 25000000, 12, 'Dell'),
+('Tai nghe AirPods 3', 'Phụ kiện', 4500000, NULL, 'Apple');
+
+-- =============================================
+-- PHẦN 2: GIẢI BÀI TẬP
+-- =============================================
+
+-- Câu 1: Thêm sản phẩm mới
+INSERT INTO products (name, category, price, stock, manufacturer)
+VALUES ('Chuột không dây Logitech M170', 'Phụ kiện', 300000, 20, 'Logitech');
+
+-- Câu 2: Cập nhật tăng giá 10% cho sản phẩm Apple
+-- (Công thức: price = price * 1.1)
+UPDATE products
+SET price = price * 1.1
+WHERE manufacturer = 'Apple';
+
+-- Câu 3: Xóa sản phẩm có stock = 0
+DELETE FROM products
+WHERE stock = 0;
+
+-- Câu 4: Lọc sản phẩm có giá từ 1 triệu đến 30 triệu
+SELECT * FROM products
+WHERE price BETWEEN 1000000 AND 30000000;
+
+-- Câu 5: Hiển thị sản phẩm có stock IS NULL
+SELECT * FROM products
+WHERE stock IS NULL;
+
+-- Câu 6: Liệt kê danh sách hãng sản xuất duy nhất
+SELECT DISTINCT manufacturer FROM products;
+
+-- Câu 7: Sắp xếp giảm dần theo giá, tăng dần theo tên
+SELECT * FROM products
+ORDER BY price DESC, name ASC;
+
+-- Câu 8: Tìm sản phẩm chứa từ "laptop" (không phân biệt hoa thường - ILIKE)
+SELECT * FROM products
+WHERE name ILIKE '%laptop%';
+
+-- Câu 9: Hiển thị 2 sản phẩm đầu tiên sau khi sắp xếp (như câu 7)
+SELECT * FROM products
+ORDER BY price DESC, name ASC
+LIMIT 2;
